@@ -37,9 +37,10 @@ jobs:
             git config --global user.email "sean@seanhay.com"
             git config --global user.name "Sean Hay"
             git checkout --orphan gh-pages
+            git rm -rf
             git add .
             git commit -m "Pushing build files"
-            git push --set-upstream origin gh-pages
+            git push origin gh-pages
 
           
 workflows:
