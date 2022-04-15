@@ -31,7 +31,7 @@ jobs:
       - run:
           name: Commit to gh-pages branch
           command: |
-            git checkout gh-pages
+            git checkout -b gh-pages
             git add .
             git commit -m "Pushing build files"
             git push -u origin
