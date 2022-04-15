@@ -7,7 +7,6 @@ orbs:
   # Orbs reduce the amount of configuration required for common tasks.
   # See the orb documentation here: https://circleci.com/developer/orbs/orb/circleci/node
   node: circleci/node@4.7
-  gh-pages: sugarshin/gh-pages@1.0.0
 
 jobs:
   # Below is the definition of your job to build and test your app, you can rename and customize it as you want.
@@ -29,6 +28,45 @@ jobs:
       - run:
           name: Run build
           command: npm run build
+  deploy:
+    description: |
+      This job takes the built and tested source code from the test job and pushes it back up to the gh-pages branch for live deployment
+    environment:
+      BRANCH: gh-pages
+      DIRECTORY: _site
+    executor: default
+    parameters:
+      fingerprint:
+        default: ""
+        description: ssh key fingerprint from CircleCI to push site back to repo
+        type: string
+    steps:
+    - checkout
+    - add_ssh_keys:
+        fingerprints:
+        - << parameters.fingerprint >>
+    - run: |
+        echo $DIRECTORY
+        echo $BRANCH
+    - run: git fetch origin $BRANCH || git checkout --orphan gh-pages && git reset
+        --hard && git config --global user.name "github-pages-orb" &&  git config
+        --global user.email "github-pages-orb@example.com" && git commit --allow-empty
+        -m "Init" && git checkout master
+    - run: rm -rf $DIRECTORY
+    - run: ls -alR
+    - run: git worktree add $DIRECTORY $BRANCH
+    - attach_workspace:
+        at: ~/project
+    - run: ls -alR
+    - run: git status
+    - run: |
+        git config --global user.email "sean@seanhay.com"
+        git config --global user.name "Sean"
+    - run: |
+        cd $DIRECTORY
+        git add -A
+        git commit -m "[skip ci] Deploy-updates"
+        git push origin gh-pages -f
 
 workflows:
   # Below is the definition of your workflow.
@@ -40,7 +78,4 @@ workflows:
       - build
       # For running simple node tests, you could optionally use the node/test job from the orb to replicate and replace the job above in fewer lines.
       # - node/test
-      - gh-pages/deploy:
-          requires:
-            - build
-          ssh-fingerprints: <fingerprint>
+      - deploy
