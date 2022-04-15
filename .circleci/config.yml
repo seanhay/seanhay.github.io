@@ -31,6 +31,8 @@ jobs:
       - run:
           name: Commit to gh-pages branch
           command: |
+            git config --global user.email "sean@seanhay.com"
+            git config --global user.name "Sean Hay"
             git checkout -b gh-pages
             git add .
             git commit -m "Pushing build files"
