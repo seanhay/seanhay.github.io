@@ -38,7 +38,7 @@ jobs:
             git config --global user.name "Sean Hay"
             git checkout --orphan gh-pages
             git add ./docs
-            git commit -m "Pushing build files"
+            git commit -m "Pushing build files [ci skip]"
             git push origin gh-pages
 
           
