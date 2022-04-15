@@ -38,10 +38,10 @@ jobs:
             git config --global user.name "Sean Hay"
             git checkout --orphan gh-pages
             shopt -s extglob
-            git rm -r --ignore-unmatch !("docs")
+            git rm -rf --ignore-unmatch !("docs")
             git add ./docs
             git commit -m "Pushing build files [ci skip]"
-            git push -f origin gh-pages
+            git push origin gh-pages
 
 workflows:
   # Below is the definition of your workflow.
