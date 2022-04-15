@@ -36,7 +36,7 @@ jobs:
             git checkout -b gh-pages
             git add .
             git commit -m "Pushing build files"
-            git push -u origin
+            git push --set-upstream origin gh-pages
 
           
 workflows:
