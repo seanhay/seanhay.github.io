@@ -37,11 +37,11 @@ jobs:
             git config --global user.email "sean@seanhay.com"
             git config --global user.name "Sean Hay"
             git checkout --orphan gh-pages
+            git rm -v !("docs")
             git add ./docs
             git commit -m "Pushing build files [ci skip]"
             git push origin gh-pages
 
-          
 workflows:
   # Below is the definition of your workflow.
   # Inside the workflow, you provide the jobs you want to run, e.g this workflow runs the build-and-test job above.
