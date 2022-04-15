@@ -28,8 +28,14 @@ jobs:
       - run:
           name: Run build
           command: npm run build
-      - store_artifacts:
-          path: /docs
+      - run:
+          name: Commit to gh-pages branch
+          command: |
+            git checkout gh-pages
+            git add .
+            git commit -m "Pushing build files"
+            git push -u origin
+
           
 workflows:
   # Below is the definition of your workflow.
