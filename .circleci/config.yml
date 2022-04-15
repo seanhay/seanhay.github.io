@@ -34,7 +34,7 @@ jobs:
     environment:
       BRANCH: gh-pages
       DIRECTORY: _site
-    executor: default
+    executor: medium
     parameters:
       fingerprint:
         default: ""
