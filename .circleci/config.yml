@@ -28,6 +28,9 @@ jobs:
       - run:
           name: Run build
           command: npm run build
+      - add_ssh_keys:
+          fingerprints:
+            - "6e:4e:d1:82:bd:1d:a7:34:a2:1e:23:2d:2f:92:ce:7e"
       - run:
           name: Commit to gh-pages branch
           command: |
