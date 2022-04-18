@@ -30,7 +30,7 @@ jobs:
           command: npm run build
       - add_ssh_keys:
           fingerprints:
-            - "43:83:33:22:fe:4b:6a:0b:93:26:e4:48:7d:3e:87:16"
+            - $SSH_FINGERPRINT
       - run:
           name: Commit to gh-pages branch
           command: |

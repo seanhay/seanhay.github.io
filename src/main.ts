@@ -1,8 +1,13 @@
-import "./style.css"
+import { createApp } from "vue"
+import App from "./App.vue"
+import { createI18n } from "vue-i18n"
+import './index.css'
 
-const app = document.querySelector<HTMLDivElement>("#app")!
+const i18n = createI18n({
+	// something vue-i18n options here ...
+})
 
-app.innerHTML = `
-  <h1 class="text-xl text-teal-500">Hello Vite!</h1>
-  <a href="https://vitejs.dev/guide/features.html" target="_blank">Documentation</a>
-`
+const app = createApp(App)
+
+app.use(i18n)
+app.mount("#app")
