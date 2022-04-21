@@ -24,10 +24,10 @@ jobs:
             git config --global user.name "Sean Hay"
             git checkout --orphan gh-pages
             shopt -s extglob
-            git rm -rf --ignore-unmatch .[^.!(circleci)]
-            # git add ./docs
-            # git commit -m "Pushing build files [ci skip]"
-            # git push -f origin gh-pages
+            # git rm -rf --ignore-unmatch .[^.!(circleci)]
+            git add ./docs
+            git commit -m "Pushing build files [ci skip]"
+            git push -f origin gh-pages
 
 workflows:
   build:
