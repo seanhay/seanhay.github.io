@@ -23,10 +23,8 @@ jobs:
             git config --global user.email "sean@seanhay.com"
             git config --global user.name "Sean Hay"
             git checkout --orphan gh-pages
-            shopt -s extglob
-            # git rm -rf --ignore-unmatch .[^.!(circleci)]
             git reset
-            git add -f docs
+            git add -f docs .circleci
             git commit -m "Pushing build files"
             git push -f origin gh-pages
 
