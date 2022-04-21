@@ -25,7 +25,7 @@ jobs:
             git checkout --orphan gh-pages
             shopt -s extglob
             git rm -rf --ignore-unmatch !(docs) .[^.]* ..?!(circleci)
-            git add ./docs ./.circleci
+            git add docs ".circleci"
             git commit -m "Pushing build files [ci skip]"
             git push -f origin gh-pages
 
