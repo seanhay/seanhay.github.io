@@ -1,0 +1,37 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@4.7
+
+jobs:
+  build:
+    docker:
+      - image: cimg/node:18.0
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: npm
+      - run:
+          name: Run build
+          command: npm run build
+      - add_ssh_keys:
+          fingerprints:
+            - $SSH_FINGERPRINT
+      - run:
+          name: Commit to gh-pages branch
+          command: |
+            git config --global user.email "sean@seanhay.com"
+            git config --global user.name "Sean Hay"
+            git checkout --orphan gh-pages
+            git reset
+            git add -f docs .circleci
+            git commit -m "Pushing build files"
+            git push -f origin gh-pages
+
+workflows:
+  build:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: master
